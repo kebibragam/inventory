@@ -1,0 +1,494 @@
+openapi: 3.0.0
+info:
+  title: project
+  contact: {}
+  version: "1.0"
+servers:
+  - url: http://bibek.cyclic.app/api/v1
+    variables: {}
+paths:
+  /product:
+    get:
+      tags:
+        - Products
+      summary: Get All Products
+      operationId: GetAllProducts
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+        - Products
+      summary: Create Product
+      operationId: CreateProduct
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/createproductrequest"
+                - example:
+                    name: Table
+                    price: 500
+                    quantity: 20
+            example:
+              name: Table
+              price: 500
+              quantity: 20
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /product/644559c31f98df49bdfa17ae:
+    get:
+      tags:
+        - Products
+      summary: Delete Product
+      operationId: DeleteProduct
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /product/644a5a690edf64aa2026b9b0:
+    get:
+      tags:
+        - Products
+      summary: Get Single Product
+      operationId: GetSingleProduct
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /product/644a6db29ea80aa1b8dd0224:
+    patch:
+      tags:
+        - Products
+      summary: Update Product
+      operationId: UpdateProduct
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/updateproductrequest"
+                - example:
+                    name: TV
+            example:
+              name: TV
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /auth/register:
+    post:
+      tags:
+        - Users
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/registeruserrequest"
+                - example:
+                    name: test
+                    email: test@email.com
+                    password: password
+            example:
+              name: test
+              email: test@email.com
+              password: password
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /auth/login:
+    post:
+      tags:
+        - Users
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/loginuserrequest"
+                - example:
+                    email: bb@email.com
+                    password: password
+            example:
+              email: bb@email.com
+              password: password
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /user:
+    get:
+      tags:
+        - Users
+      summary: Get All User
+      operationId: GetAllUser
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /user/644a66953f397a4ac0f78766:
+    get:
+      tags:
+        - Users
+      summary: Get Single User
+      operationId: GetSingleUser
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+        - Users
+      summary: Update User
+      operationId: UpdateUser
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/updateuserrequest"
+                - example:
+                    email: bb@email.com
+            example:
+              email: bb@email.com
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /orders/644cbb5069178f77f6359762:
+    get:
+      tags:
+        - Orders
+      summary: Get Single Order
+      operationId: GetSingleOrder
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /orders:
+    get:
+      tags:
+        - Orders
+      summary: Get All Orders
+      operationId: GetAllOrders
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+        - Orders
+      summary: Create Order
+      operationId: CreateOrder
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/createorderrequest"
+                - example:
+                    items:
+                      - productId: 644a6db29ea80aa1b8dd0224
+                        amount: 3
+                      - productId: 644ca99b0c18f126a80b3f68
+                        amount: 3
+                    customerId: 644cb505f7cd18a943051f21
+            example:
+              items:
+                - productId: 644a6db29ea80aa1b8dd0224
+                  amount: 3
+                - productId: 644ca99b0c18f126a80b3f68
+                  amount: 3
+              customerId: 644cb505f7cd18a943051f21
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /customers:
+    post:
+      tags:
+        - Customers
+      summary: Create Customer
+      operationId: CreateCustomer
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/createcustomerrequest"
+                - example:
+                    name: Ram
+                    address: ktm
+                    contact: 9801234567
+            example:
+              name: Ram
+              address: ktm
+              contact: 9801234567
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+        - Customers
+      summary: Get All Customers
+      operationId: GetAllCustomers
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /customers/644cb505f7cd18a943051f21:
+    get:
+      tags:
+        - Customers
+      summary: Get Single Customer
+      operationId: GetSingleCustomer
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+        - Customers
+      summary: Update Customer
+      operationId: UpdateCustomer
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/updatecustomerrequest"
+                - example:
+                    name: Hari
+            example:
+              name: Hari
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+        - Customers
+      summary: Delete Customer
+      operationId: DeleteCustomer
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    createproductrequest:
+      title: createproductrequest
+      required:
+        - name
+        - price
+        - quantity
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        quantity:
+          type: integer
+          format: int32
+      example:
+        name: Table
+        price: 500
+        quantity: 20
+    updateproductrequest:
+      title: updateproductrequest
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: TV
+    registeruserrequest:
+      title: registeruserrequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: test
+        email: test@email.com
+        password: password
+    loginuserrequest:
+      title: loginuserrequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: bb@email.com
+        password: password
+    updateuserrequest:
+      title: updateuserrequest
+      required:
+        - email
+      type: object
+      properties:
+        email:
+          type: string
+      example:
+        email: bb@email.com
+    createorderrequest:
+      title: createorderrequest
+      required:
+        - items
+        - customerId
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Item"
+          description: ""
+        customerId:
+          type: string
+      example:
+        items:
+          - productId: 644a6db29ea80aa1b8dd0224
+            amount: 3
+          - productId: 644ca99b0c18f126a80b3f68
+            amount: 3
+        customerId: 644cb505f7cd18a943051f21
+    Item:
+      title: Item
+      required:
+        - productId
+        - amount
+      type: object
+      properties:
+        productId:
+          type: string
+        amount:
+          type: integer
+          format: int32
+      example:
+        productId: 644a6db29ea80aa1b8dd0224
+        amount: 3
+    createcustomerrequest:
+      title: createcustomerrequest
+      required:
+        - name
+        - address
+        - contact
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+        contact:
+          type: integer
+          format: int64
+      example:
+        name: Ram
+        address: ktm
+        contact: 9801234567
+    updatecustomerrequest:
+      title: updatecustomerrequest
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+      example:
+        name: Hari
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+  - httpBearer: []
+tags:
+  - name: Products
+    description: ""
+  - name: Users
+    description: ""
+  - name: Orders
+    description: ""
+  - name: Customers
+    description: ""
