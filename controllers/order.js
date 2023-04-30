@@ -45,6 +45,7 @@ const createOrder = async (req, res) => {
     // calculate subtotal
     total += item.amount * price;
   }
+
   const order = await Order.create({
     orderItems,
     total,

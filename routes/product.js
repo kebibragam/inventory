@@ -15,11 +15,11 @@ const {
 
 router
   .route("/")
-  .get(getAllProducts)
+  .get(authenticateUser, getAllProducts)
   .post([authenticateUser, authorizePermissions("manager")], createProduct);
 router
   .route("/:id")
-  .get(getProduct)
+  .get(getProduct, authenticateUser)
   .patch([authenticateUser, authorizePermissions("manager")], updateProduct)
   .delete([authenticateUser, authorizePermissions("manager")], deleteProduct);
 
