@@ -46,8 +46,15 @@ paths:
           description: ""
           headers: {}
       deprecated: false
-  /product/644559c31f98df49bdfa17ae:
-    get:
+  /product/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The product ID
+    delete:
       tags:
         - Products
       summary: Delete Product
@@ -58,7 +65,7 @@ paths:
           description: ""
           headers: {}
       deprecated: false
-  /product/644a5a690edf64aa2026b9b0:
+
     get:
       tags:
         - Products
@@ -70,7 +77,7 @@ paths:
           description: ""
           headers: {}
       deprecated: false
-  /product/644a6db29ea80aa1b8dd0224:
+
     patch:
       tags:
         - Products
@@ -174,7 +181,14 @@ paths:
           description: ""
           headers: {}
       deprecated: false
-  /user/644a66953f397a4ac0f78766:
+  /user/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
     get:
       tags:
         - Users
@@ -209,7 +223,25 @@ paths:
           description: ""
           headers: {}
       deprecated: false
-  /orders/644cbb5069178f77f6359762:
+    delete:
+      tags:
+        - Users
+      summary: Delete User
+      operationId: DeleteUser
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /orders/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
     get:
       tags:
         - Orders
@@ -305,7 +337,14 @@ paths:
           description: ""
           headers: {}
       deprecated: false
-  /customers/644cb505f7cd18a943051f21:
+  /customers/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
     get:
       tags:
         - Customers
@@ -490,12 +529,12 @@ components:
           type: string
       example:
         name: Hari
-  securitySchemes:
-    httpBearer:
-      type: http
-      scheme: bearer
-security:
-  - httpBearer: []
+#   securitySchemes:
+#     httpBearer:
+#       type: http
+#       scheme: bearer
+# security:
+#   - httpBearer: []
 tags:
   - name: Products
     description: ""
