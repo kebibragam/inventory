@@ -16,9 +16,18 @@ const updateUser = async (req, res) => {
     runValidators: true,
   });
   if (!user) {
-    throw new CustomError.NotFoundError(`No user with id : ${productId}`);
+    throw new CustomError.NotFoundError(`No user with id : ${req.params.id}`);
   }
   res.status(StatusCodes.OK).json({ user });
 };
+const deleteUser = async (req, res) => {
+  const user = await User.findByIdAndDelete({ _id: req.params.id });
+  if (!user) {
+    throw new CustomError.NotFoundError(`No user with id : ${req.params.id}`);
+  }
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: `User  with id : ${req.params.id} deleted` });
+};
 
-module.exports = { getAllUsers, getSingleUser, updateUser };
+module.exports = { getAllUsers, getSingleUser, updateUser, deleteUser };
