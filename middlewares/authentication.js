@@ -6,14 +6,18 @@ const { UnauthenticatedError } = require("../errors");
 
 const authenticateUser = async (req, res, next) => {
   //check header
-  const authHeader = req.headers.authorization;
+  // const authHeader = req.headers.authorization;
   // console.log(authHeader);
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    throw new UnauthenticatedError("Authentication invalid");
-  }
+  // if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  //   throw new UnauthenticatedError("Authentication invalid");
+  // }
 
-  const token = authHeader.split(" ")[1];
+  // const token = authHeader.split(" ")[1];
+  const token = req.cookies.token;
+  if (!token) {
+    throw new CustomError.UnauthenticatedError("Authentication Invalid");
+  }
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);

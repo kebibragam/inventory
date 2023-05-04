@@ -33,13 +33,13 @@ paths:
               allOf:
                 - $ref: "#/components/schemas/createproductrequest"
                 - example:
-                    name: Table
-                    price: 500
-                    quantity: 20
+                    name: chair
+                    price: 100
+                    quantity: 200
             example:
-              name: Table
-              price: 500
-              quantity: 20
+              name: chair
+              price: 100
+              quantity: 200
         required: true
       responses:
         "200":
@@ -137,12 +137,25 @@ paths:
               allOf:
                 - $ref: "#/components/schemas/loginuserrequest"
                 - example:
-                    email: bb@email.com
+                    email: admin@email.com
                     password: password
             example:
-              email: bb@email.com
+              email: admin@email.com
               password: password
         required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/logout:
+    get:
+      tags:
+        - Users
+      summary: Logout User
+      operationId: LogoutUser
+      parameters: []
       responses:
         "200":
           description: ""
@@ -235,18 +248,18 @@ paths:
                 - $ref: "#/components/schemas/createorderrequest"
                 - example:
                     items:
-                      - productId: 644a6db29ea80aa1b8dd0224
+                      - productId: 64528f392e0355eccf2f067b
                         amount: 3
-                      - productId: 644ca99b0c18f126a80b3f68
+                      - productId: 64528f462e0355eccf2f067d
                         amount: 3
-                    customerId: 644cb505f7cd18a943051f21
+                    customerId: 644e41aff218fbebf6fdc728
             example:
               items:
-                - productId: 644a6db29ea80aa1b8dd0224
+                - productId: 64528f392e0355eccf2f067b
                   amount: 3
-                - productId: 644ca99b0c18f126a80b3f68
+                - productId: 64528f462e0355eccf2f067d
                   amount: 3
-              customerId: 644cb505f7cd18a943051f21
+              customerId: 644e41aff218fbebf6fdc728
         required: true
       responses:
         "200":
@@ -357,9 +370,9 @@ components:
           type: integer
           format: int32
       example:
-        name: Table
-        price: 500
-        quantity: 20
+        name: chair
+        price: 100
+        quantity: 200
     updateproductrequest:
       title: updateproductrequest
       required:
@@ -400,7 +413,7 @@ components:
         password:
           type: string
       example:
-        email: bb@email.com
+        email: admin@email.com
         password: password
     updateuserrequest:
       title: updateuserrequest
@@ -428,11 +441,11 @@ components:
           type: string
       example:
         items:
-          - productId: 644a6db29ea80aa1b8dd0224
+          - productId: 64528f392e0355eccf2f067b
             amount: 3
-          - productId: 644ca99b0c18f126a80b3f68
+          - productId: 64528f462e0355eccf2f067d
             amount: 3
-        customerId: 644cb505f7cd18a943051f21
+        customerId: 644e41aff218fbebf6fdc728
     Item:
       title: Item
       required:
@@ -446,7 +459,7 @@ components:
           type: integer
           format: int32
       example:
-        productId: 644a6db29ea80aa1b8dd0224
+        productId: 64528f392e0355eccf2f067b
         amount: 3
     createcustomerrequest:
       title: createcustomerrequest

@@ -17,17 +17,23 @@ const login = async (req, res) => {
   if (!user) {
     throw new UnauthenticatedError("Invalid Email");
   }
+  //compare password
   const isPasswordCorrect = await user.comparePassword(password);
   if (!isPasswordCorrect) {
     throw new UnauthenticatedError("Invalid Password");
   }
-  //compare password
 
   const token = user.createJWT();
+  res.cookie("token", token, { httpOnly: true, maxAge: 6 * 60 * 60 * 1000 });
   res.status(StatusCodes.OK).json({
     user: { name: user.name, userId: user._id, role: user.role },
     token,
   });
 };
 
-module.exports = { register, login };
+const logout = async (req, res) => {
+  res.clearCookie("token");
+  res.status(StatusCodes.OK).json({ msg: "Logged out" });
+};
+
+module.exports = { register, login, logout };

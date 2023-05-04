@@ -1,6 +1,10 @@
 require("dotenv").config();
 require("express-async-errors");
 
+//express
+const express = require("express");
+const app = express();
+
 //extra security packages
 const helmet = require("helmet");
 const cors = require("cors");
@@ -12,8 +16,8 @@ const swaggerUI = require("swagger-ui-express");
 const YAML = require("yamljs");
 const swaggerDocument = YAML.load("./swagger.yaml");
 
-const express = require("express");
-const app = express();
+//cookie
+const cookieParser = require("cookie-parser");
 
 //connectDB
 const connectDB = require("./db/connect");
@@ -41,7 +45,15 @@ app.use(
   })
 );
 
-app.use(express.json());
+//middlewares
+app.use(
+  express.json(
+    express.urlencoded({
+      extended: true,
+    })
+  )
+);
+app.use(cookieParser());
 app.use(helmet());
 app.use(cors());
 app.use(xss());
