@@ -1,6 +1,7 @@
 require("dotenv").config();
 require("express-async-errors");
 
+const port = process.env.PORT || 3000;
 //express
 const express = require("express");
 const app = express();
@@ -55,10 +56,17 @@ app.use(
 );
 app.use(cookieParser());
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    origin: [`http://localhost:3000`, `https://localhost:3000`],
+    credentials: true,
+  })
+);
 app.use(xss());
 
 //routes
+app.use(express.static("public"));
+
 app.get("/", (req, res) => {
   res.send("<h1>Inventory API</h1><a href='/api-docs'>Documentation</a> ");
 });
@@ -76,8 +84,6 @@ app.use("/api/v1/customers", authenticateUser, customerRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
-
-const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {

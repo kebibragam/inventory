@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, UnauthenticatedError } = require("../errors");
 
@@ -24,11 +25,26 @@ const login = async (req, res) => {
   }
 
   const token = user.createJWT();
-  res.cookie("token", token, { httpOnly: true, maxAge: 6 * 60 * 60 * 1000 });
+  res.cookie("token", token, {
+    httpOnly: true,
+    maxAge: 6 * 60 * 60 * 1000,
+  });
   res.status(StatusCodes.OK).json({
     user: { name: user.name, userId: user._id, role: user.role },
     token,
   });
+};
+
+const isAuthenticated = (req, res) => {
+  if (jwt.verify(req.cookies.token, process.env.JWT_SECRET)) {
+    const user = jwt.decode(req.cookies.token);
+    return res.status(StatusCodes.OK).json({
+      msg: true,
+      user: { name: user.name, userId: user.userId, role: user.role },
+    });
+  } else {
+    return res.status(StatusCodes.UNAUTHORIZED).json({ msg: false });
+  }
 };
 
 const logout = async (req, res) => {
@@ -36,4 +52,4 @@ const logout = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Logged out" });
 };
 
-module.exports = { register, login, logout };
+module.exports = { register, login, logout, isAuthenticated };
