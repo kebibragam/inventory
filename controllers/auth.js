@@ -36,6 +36,9 @@ const login = async (req, res) => {
 };
 
 const isAuthenticated = (req, res) => {
+  if (!req.cookies.token) {
+    return res.status(StatusCodes.UNAUTHORIZED).json({ msg: false });
+  }
   if (jwt.verify(req.cookies.token, process.env.JWT_SECRET)) {
     const user = jwt.decode(req.cookies.token);
     return res.status(StatusCodes.OK).json({
