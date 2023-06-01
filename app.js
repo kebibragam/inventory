@@ -38,7 +38,6 @@ const {
   authorizePermissions,
 } = require("./middlewares/authentication");
 
-app.set("trust poxy", 1);
 app.use(
   rateLimiter({
     windowMs: 15 * 60 * 1000, //15 minutes
@@ -66,6 +65,7 @@ app.use(
     credentials: true,
   })
 );
+app.set("trust poxy", 1);
 app.use(xss());
 
 //routes

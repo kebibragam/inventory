@@ -18,7 +18,9 @@ const updateUser = async (req, res) => {
   if (!user) {
     throw new CustomError.NotFoundError(`No user with id : ${req.params.id}`);
   }
-  res.status(StatusCodes.OK).json({ user });
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: `updated user with id ${req.params.id}` });
 };
 const deleteUser = async (req, res) => {
   const user = await User.findByIdAndDelete({ _id: req.params.id });
