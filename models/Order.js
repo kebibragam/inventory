@@ -20,6 +20,10 @@ const OrderSchema = new mongoose.Schema(
       ref: "Customer",
       required: [true, "Please provide customer"],
     },
+    customerName: {
+      type: String,
+      required: [true, "please provide customer name"],
+    },
     total: {
       type: Number,
       required: true,

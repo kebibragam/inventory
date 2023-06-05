@@ -1,4 +1,5 @@
 const Order = require("../models/Order");
+const Customer = require("../models/Customer");
 const Product = require("../models/Product");
 const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
@@ -32,6 +33,7 @@ const createOrder = async (req, res) => {
       }
       let orderItems = [];
       let total = 0;
+
       for (const item of cartItems) {
         const dbProduct = await Product.findOne({
           _id: item.productId,
@@ -58,14 +60,21 @@ const createOrder = async (req, res) => {
         orderItems = [...orderItems, singleOrderItem];
         //decrease quantity
         dbProduct.quantity -= item.amount;
+        //increase soldQuantity
+        dbProduct.soldQuantity += item.amount;
+
         await dbProduct.save();
         // calculate subtotal
         total += item.amount * price;
       }
+      const { name: customerName } = await Customer.findById({
+        _id: req.body.customerId,
+      });
 
       const order = await Order.create({
         orderItems,
         total,
+        customerName,
         customerID: req.body.customerId,
       });
 

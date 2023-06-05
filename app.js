@@ -29,6 +29,7 @@ const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const orderRouter = require("./routes/order");
 const customerRouter = require("./routes/customer");
+const statsRouter = require("./routes/stats");
 
 //error handler
 const notFoundMiddleware = require("./middlewares/not-found");
@@ -85,6 +86,11 @@ app.use(
 );
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/customers", authenticateUser, customerRouter);
+app.use(
+  "/api/v1/stats",
+  [authenticateUser, authorizePermissions("manager")],
+  statsRouter
+);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

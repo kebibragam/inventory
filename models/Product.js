@@ -18,6 +18,10 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  soldQuantity: {
+    type: Number,
+    default: 0,
+  },
 });
 
 ProductSchema.pre("save", (next) => {
