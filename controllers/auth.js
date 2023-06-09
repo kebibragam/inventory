@@ -28,7 +28,10 @@ const login = async (req, res) => {
   const token = user.createJWT();
   res.cookie("token", token, {
     httpOnly: true,
-    maxAge: 6 * 60 * 60 * 1000,
+    expires: new Date(Date.now() + 3600000),
+    // maxAge: 6 * 60 * 60 * 1000,
+    sameSite: "none",
+    secure: true,
   });
   res.status(StatusCodes.OK).json({
     user: { name: user.name, userId: user._id, role: user.role },
