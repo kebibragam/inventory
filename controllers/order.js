@@ -67,15 +67,16 @@ const createOrder = async (req, res) => {
         // calculate subtotal
         total += item.amount * price;
       }
-      const { name: customerName } = await Customer.findById({
-        _id: req.body.customerId,
+      const { name: customerName, _id: customerID } = await Customer.findOne({
+        number: req.body.customerNumber,
       });
 
       const order = await Order.create({
         orderItems,
         total,
         customerName,
-        customerID: req.body.customerId,
+        customerNumber: req.body.customerNumber,
+        customerID,
       });
 
       res.status(StatusCodes.CREATED).json({ order });
