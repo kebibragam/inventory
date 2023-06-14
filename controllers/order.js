@@ -6,7 +6,7 @@ const CustomError = require("../errors");
 const { mongoose } = require("mongoose");
 
 const getAllOrders = async (req, res) => {
-  const orders = await Order.find({});
+  const orders = await Order.find({}).sort({ createdAt: -1 });
 
   res.status(StatusCodes.OK).json(orders);
 };

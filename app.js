@@ -81,7 +81,7 @@ app.use("/api/v1/product", productRouter);
 app.use("/api/v1/auth", authRouter);
 app.use(
   "/api/v1/user",
-  [authenticateUser, authorizePermissions("manager")],
+
   userRouter
 );
 app.use("/api/v1/orders", orderRouter);

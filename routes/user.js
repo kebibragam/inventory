@@ -1,5 +1,8 @@
 const router = require("express").Router();
-
+const {
+  authenticateUser,
+  authorizePermissions,
+} = require("../middlewares/authentication");
 const {
   getAllUsers,
   getSingleUser,
@@ -7,6 +10,12 @@ const {
   deleteUser,
 } = require("../controllers/user");
 
-router.route("/").get(getAllUsers);
-router.route("/:id").get(getSingleUser).patch(updateUser).delete(deleteUser);
+router
+  .route("/")
+  .get([authenticateUser, authorizePermissions("manager")], getAllUsers);
+router
+  .route("/:id")
+  .get(authenticateUser, getSingleUser)
+  .patch([authenticateUser, authorizePermissions("manager")], updateUser)
+  .delete([authenticateUser, authorizePermissions("manager")], deleteUser);
 module.exports = router;
