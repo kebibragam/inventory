@@ -45,14 +45,14 @@ const createOrder = async (req, res) => {
         }
 
         // console.log(dbProduct);
-        const { name, price, image, _id, quantity } = dbProduct;
+        const { name, sellingPrice, image, _id, quantity } = dbProduct;
         if (dbProduct.quantity < item.amount) {
           return res.status(400).send("Not enough product in stock");
         }
 
         const singleOrderItem = {
           name,
-          price,
+          sellingPrice,
           quantity: item.amount,
           productID: _id,
         };
@@ -65,7 +65,7 @@ const createOrder = async (req, res) => {
 
         await dbProduct.save();
         // calculate subtotal
-        total += item.amount * price;
+        total += item.amount * sellingPrice;
       }
       const { name: customerName, _id: customerID } = await Customer.findOne({
         number: req.body.customerNumber,
