@@ -10,9 +10,17 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     default: "../img/product.jpg",
   },
-  price: {
+  purchasePrice: {
     type: Number,
-    required: [true, "Please provide product price"],
+    required: [true, "Please provide product purchase price"],
+  },
+  sellingPrice: {
+    type: Number,
+    required: [true, "Please provide product selling price"],
+  },
+  profit: {
+    type: Number,
+    required: [true, "Please provide profit"],
   },
   quantity: {
     type: Number,

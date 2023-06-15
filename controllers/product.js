@@ -9,6 +9,7 @@ const getAllProducts = async (req, res) => {
 };
 const createProduct = async (req, res) => {
   const product = await Product.create(req.body);
+
   res.status(StatusCodes.CREATED).json({ product });
 };
 const getProduct = async (req, res) => {
