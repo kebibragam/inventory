@@ -28,6 +28,11 @@ const OrderSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+
+    profitAmount: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true }
 );
