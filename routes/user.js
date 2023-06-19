@@ -8,6 +8,7 @@ const {
   getSingleUser,
   updateUser,
   deleteUser,
+  updatePassword,
 } = require("../controllers/user");
 
 router
@@ -18,4 +19,5 @@ router
   .get(authenticateUser, getSingleUser)
   .patch([authenticateUser, authorizePermissions("manager")], updateUser)
   .delete([authenticateUser, authorizePermissions("manager")], deleteUser);
+router.route("/changepassword/:id").patch(authenticateUser, updatePassword);
 module.exports = router;
