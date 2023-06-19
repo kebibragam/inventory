@@ -100,34 +100,34 @@ const getSalesAndProfitAmount = async (req, res) => {
 };
 const weeklySalesData = async (req, res) => {
   try {
-    const orders = await Order.find();
-
     const currentDate = new Date();
-    const currentDayOfWeek = currentDate.getDay(); // Get the current day of the week (0 = Sunday, 1 = Monday, ...)
+
     const weekStartDate = new Date(currentDate);
-    weekStartDate.setDate(currentDate.getDate() - currentDayOfWeek - 7); // Set the start date to the previous Monday
+    weekStartDate.setDate(currentDate.getDate() - 6); // Subtract 6 days to get the start date for the latest 7 days
+
+    const orders = await Order.find({
+      createdAt: { $gte: weekStartDate, $lte: currentDate },
+    });
 
     let salesByDay = {};
 
     for (const order of orders) {
       const orderDate = new Date(order.createdAt);
 
-      if (orderDate >= weekStartDate && orderDate <= currentDate) {
-        const dayOfWeek = orderDate.toLocaleDateString("en-US", {
-          weekday: "long",
-        });
-        const date = orderDate.toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        });
-        const key = `${dayOfWeek}, ${date}`;
+      const dayOfWeek = orderDate.toLocaleDateString("en-US", {
+        weekday: "long",
+      });
+      const date = orderDate.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+      const key = `${dayOfWeek}, ${date}`;
 
-        if (salesByDay[key]) {
-          salesByDay[key] += order.total;
-        } else {
-          salesByDay[key] = order.total;
-        }
+      if (salesByDay[key]) {
+        salesByDay[key] += order.total;
+      } else {
+        salesByDay[key] = order.total;
       }
     }
 
