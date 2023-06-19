@@ -18,6 +18,10 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Please provide product selling price"],
   },
+  expiryDate: {
+    type: Date,
+    required: [true, "Please provide product selling price"],
+  },
   profit: {
     type: Number,
     required: [true, "Please provide profit"],

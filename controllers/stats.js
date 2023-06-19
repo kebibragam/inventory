@@ -12,6 +12,10 @@ const getMostSoldProducts = async (req, res) => {
   const products = await Product.find().sort({ soldQuantity: -1 });
   res.status(StatusCodes.OK).json(products);
 };
+const getExpiryProducts = async (req, res) => {
+  const products = await Product.find().sort({ expiryDate: 1 });
+  res.status(StatusCodes.OK).json(products);
+};
 const getSalesAndProfitAmount = async (req, res) => {
   try {
     const orders = await Order.find();
@@ -152,6 +156,7 @@ const weeklySalesData = async (req, res) => {
 module.exports = {
   getLowQuantityProducts,
   getMostSoldProducts,
+  getExpiryProducts,
   getSalesAndProfitAmount,
   weeklySalesData,
 };
