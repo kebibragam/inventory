@@ -38,6 +38,26 @@ const updateProduct = async (req, res) => {
 
   res.status(StatusCodes.OK).json({ product });
 };
+const updateProductQuantity = async (req, res) => {
+  const { id: productId } = req.params;
+  const product = await Product.findById({ _id: productId });
+  if (!product) {
+    throw new CustomError.NotFoundError(`No product with id : ${productId}`);
+  }
+  // console.log(req.body);
+  const quantity = parseInt(product.quantity) + parseInt(req.body.quantity);
+  // console.log(quantity);
+  const updatedProduct = await Product.findByIdAndUpdate(
+    { _id: productId },
+    { quantity: quantity },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  res.status(StatusCodes.OK).json({ updatedProduct });
+};
 const deleteProduct = async (req, res) => {
   const { id: productId } = req.params;
 
@@ -55,5 +75,6 @@ module.exports = {
   createProduct,
   getProduct,
   updateProduct,
+  updateProductQuantity,
   deleteProduct,
 };

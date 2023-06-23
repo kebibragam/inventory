@@ -34,6 +34,30 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  number: {
+    type: Number,
+    unique: true, // Ensure uniqueness of auto-incrementing values
+  },
+});
+
+ProductSchema.pre("save", async function (next) {
+  try {
+    if (this.isNew) {
+      const latestProduct = await this.constructor.findOne(
+        {},
+        {},
+        { sort: { number: -1 } }
+      );
+      if (latestProduct && latestProduct.number) {
+        this.number = latestProduct.number + 1;
+      } else {
+        this.number = 100;
+      }
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 ProductSchema.pre("save", (next) => {

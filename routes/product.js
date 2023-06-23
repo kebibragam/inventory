@@ -10,6 +10,7 @@ const {
   createProduct,
   getProduct,
   updateProduct,
+  updateProductQuantity,
   deleteProduct,
 } = require("../controllers/product");
 
@@ -22,5 +23,10 @@ router
   .get(getProduct, authenticateUser)
   .patch([authenticateUser, authorizePermissions("manager")], updateProduct)
   .delete([authenticateUser, authorizePermissions("manager")], deleteProduct);
-
+router
+  .route("/quantity/:id")
+  .patch(
+    [authenticateUser, authorizePermissions("manager")],
+    updateProductQuantity
+  );
 module.exports = router;
